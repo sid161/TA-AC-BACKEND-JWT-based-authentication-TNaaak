@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/User')
+var User = require('../models/User');
+var jwt = require('jsonwebtoken');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -30,7 +31,11 @@ router.post('/login', async (req,res,next) => {
    var result = await user.verifyPassword(password);
    if(!result){
      return res.status(400).json({error: "invalid password"});
+
    }
+   var token = await user.signToken();
+   console.log(token);
+   res.json({user,token});
 
  } catch (error) {
    next(error);

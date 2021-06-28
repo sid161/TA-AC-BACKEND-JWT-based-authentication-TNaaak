@@ -30,5 +30,24 @@ userSchema.methods.verifyPassword = async function(password){
    
 }
 
+userSchema.methods.signToken = async function(){
+    console.log(this);
+    try {
+        var payload = {userId:this.id,email:this.email};
+        var token = await jwt.sign(payload, process.env.SECRET)
+        return token;
+    } catch (error) {
+        return error;
+    }
+}
+
+userSchema.methods.userJSON = function(token){
+    return {
+        name:this.name,
+        email:this.email,
+        token:token
+    }
+}
+
 var User = mongoose.model('User',userSchema);
 module.exports = User;
