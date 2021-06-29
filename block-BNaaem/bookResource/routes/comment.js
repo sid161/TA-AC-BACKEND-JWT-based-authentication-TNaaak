@@ -12,7 +12,9 @@ router.get('/comment', (req, res, next) => {
   });
 });
 
-router.put('/:id', (req, res, next) => {
+
+
+router.put('/:id',auth.verifyToken, (req, res, next) => {
     let id = req.params.id;
     Comment.findByIdAndUpdate(id, req.body, (err, book) => {
       if (err) return next(err);
