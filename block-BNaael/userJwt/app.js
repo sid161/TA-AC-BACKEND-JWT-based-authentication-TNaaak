@@ -10,7 +10,7 @@ var User = require('./models/User');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-mongoose.connect("mongodb://localhost/apiUser",(err) => {
+mongoose.connect("mongodb://localhost/userJwt",(err) => {
   console.log(err ? err : "Connected to database")
 })
 
